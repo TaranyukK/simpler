@@ -1,11 +1,11 @@
 class TestsController < Simpler::Controller
-
   def index
-    @time = Time.now
+    @tests = Test.all
   end
 
-  def create
-
+  def show
+    @test = Test.find(id: params[:id])
   end
 
+  def create; end
 end
