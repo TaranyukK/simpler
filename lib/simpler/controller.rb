@@ -2,7 +2,6 @@ require_relative 'view'
 
 module Simpler
   class Controller
-
     attr_reader :name, :request, :response
 
     def initialize(env)
@@ -22,6 +21,14 @@ module Simpler
       @response.finish
     end
 
+    def status(code)
+      @response.status = code
+    end
+
+    def headers
+      @response.headers
+    end
+
     private
 
     def extract_name
@@ -34,21 +41,28 @@ module Simpler
 
     def write_response
       body = render_body
-
       @response.write(body)
     end
 
     def render_body
-      View.new(@request.env).render(binding)
+      if @request.env['simpler.plain_text']
+        @response['Content-Type'] = 'text/plain'
+        @request.env['simpler.plain_text']
+      else
+        View.new(@request.env).render(binding)
+      end
     end
 
     def params
-      @request.params
+      @request.params.merge(@request.env['simpler.route_params'] || {})
     end
 
-    def render(template)
-      @request.env['simpler.template'] = template
+    def render(template = nil, plain: nil)
+      if plain
+        @request.env['simpler.plain_text'] = plain
+      else
+        @request.env['simpler.template'] = template
+      end
     end
-
   end
 end

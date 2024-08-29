@@ -1,0 +1,41 @@
+
+      Request: GET
+      Handler: TestsController#index
+      Parameters: 
+      Response: 200 [text/html] 
+    
+      Request: GET
+      Handler: TestsController#show
+      Parameters: 
+      Response: 200 [text/html] 
+    
+      Request: GET
+      Handler: NilClass#
+      Parameters: 
+      Response: 404 [] 
+    
+      Request: GET
+      Handler: TestsController#show
+      Parameters: 
+      Response: 200 [text/html] 
+    
+      Request: GET
+      Handler: TestsController#index
+      Parameters: 
+      Response: 200 [text/html] 
+    
+      Request: GET
+      Handler: TestsController#show
+      Parameters: 
+      Response: 200 [text/html] 
+    
+      Request: GET
+      Handler: TestsController#show
+      Parameters: {"aha"=>"333", "nene"=>"666"}
+      Response: 200 [text/html] 
+    
+      Request: GET
+      Handler: TestsController#show
+      Parameters: {"aha"=>"333", "nene"=>"666"}
+      Response: 200 [text/html] 
+    

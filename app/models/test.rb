@@ -3,6 +3,4 @@
 #   String :title, null: false
 #   Integer :level, default: 0
 # end
-class Test < Sequel::Model
-
-end
+class Test < Sequel::Model; end

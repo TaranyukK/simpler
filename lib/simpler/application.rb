@@ -6,10 +6,9 @@ require_relative 'controller'
 
 module Simpler
   class Application
-
     include Singleton
 
-    attr_reader :db
+    attr_reader :db, :params
 
     def initialize
       @router = Router.new
@@ -28,6 +27,11 @@ module Simpler
 
     def call(env)
       route = @router.route_for(env)
+
+      return not_found if route.nil?
+
+      env['simpler.route_params'] = route.params(env['PATH_INFO'])
+
       controller = route.controller.new(env)
       action = route.action
 
@@ -54,5 +58,10 @@ module Simpler
       controller.make_response(action)
     end
 
+    def not_found
+      response = Rack::Response.new
+      response.status = 404
+      response.finish
+    end
   end
 end
